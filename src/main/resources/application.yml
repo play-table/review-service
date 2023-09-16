@@ -1,0 +1,27 @@
+server:
+  port: 0
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.0.203:8761/eureka
+  instance:
+    instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+    prefer-ip-address: true
+
+spring:
+  application:
+    name: review-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/review?serverTimezone=Asia/Seoul
+    username: root
+    password: 1q2w3e4r!!
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+jwt:
+  secret: asdklhasfjkhajkldshajkdhajkdhsajklfhasdljgshsdadassdasdsajdfghsjkfhdsjkhf
