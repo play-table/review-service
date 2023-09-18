@@ -1,5 +1,6 @@
 package com.playtable.review.controller;
 
+import com.playtable.review.config.MemberTokenInfo;
 import com.playtable.review.domain.entity.Review;
 
 import com.playtable.review.domain.request.ReviewRequest;
@@ -9,6 +10,7 @@ import com.playtable.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,8 +29,10 @@ public class ReviewController {
     }
 
     @PostMapping
-    public ResponseEntity<Review> uploadReview(@RequestBody ReviewRequest request) {
-        Review savedReview = reviewService.uploadReview(request);
+    public ResponseEntity<Review> uploadReview(
+            @AuthenticationPrincipal MemberTokenInfo memberTokenInfo,
+            @RequestBody ReviewRequest request) {
+        Review savedReview = reviewService.uploadReview(memberTokenInfo, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedReview);
     }
 

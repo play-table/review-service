@@ -1,6 +1,7 @@
 package com.playtable.review.service;
 
 import com.playtable.review.common.expection.ReviewNotFoundException;
+import com.playtable.review.config.MemberTokenInfo;
 import com.playtable.review.domain.entity.Review;
 import com.playtable.review.domain.request.ReviewRequest;
 import com.playtable.review.repository.ReviewRepository;
@@ -18,8 +19,8 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
 
     @Transactional
-    public Review uploadReview(ReviewRequest request){
-        return reviewRepository.save(request.toEntity());
+    public Review uploadReview(MemberTokenInfo memberTokenInfo, ReviewRequest request){
+        return reviewRepository.save(request.toEntity(memberTokenInfo.getId()));
     }
 
     @Transactional
@@ -50,6 +51,9 @@ public class ReviewService {
 
         // 2. isDelete 업데이트 (서비스 상 제거)
         findReview.updateIsDelete(1);
+    }
+    public Long findByReview() {
+        return reviewRepository.findByReview();
     }
 }
 

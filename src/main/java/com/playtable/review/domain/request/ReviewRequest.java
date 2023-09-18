@@ -8,8 +8,6 @@ public record ReviewRequest(
         UUID storeId,
         UUID reservationSituationId,
 
-        UUID customerId,
-
         Integer rating,
 
         String content,
@@ -17,7 +15,7 @@ public record ReviewRequest(
         String imgUrl
 
 ){
-    public Review toEntity(){
+    public Review toEntity(UUID customerId){
         return Review.builder()
                 .storeId(storeId)
                 .reservationSituationId(reservationSituationId)
